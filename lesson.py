@@ -3,13 +3,22 @@ from pygame.draw import *
 
 pygame.init()
 
+SCREEN = (400, 400)
+SCREEN_COLOR = "white"
+
+
+
+
+SCREEN1 = SCREEN[0]
+SCREEN2 = SCREEN[1]
 FPS = 30
-screen = pygame.display.set_mode((400, 400))
+screen = pygame.display.set_mode(SCREEN)
+
 
 
 N = 10
 color = (255, 255, 255)
-rect(screen, "white", [0,0,400,400])
+rect(screen, SCREEN_COLOR, [0,0,SCREEN1,SCREEN2])
 class my_face:
     class skin:
         circle(screen,color="yellow", radius=150, center=[200,200])
@@ -21,12 +30,17 @@ class my_face:
     class brows:
         line(screen, "black", [90, 60], [190, 140], 10)
         line(screen, "black", [200, 140], [300, 90], 10)
+    class mouth:
+        ellipse(screen, "black", [110, 200, 180, 120])
+        ellipse(screen, "yellow", [110, 220, 180, 120])
 
 
 
 pygame.display.update()
 clock = pygame.time.Clock()
 finished = False
+
+
 
 while not finished:
     clock.tick(FPS)
