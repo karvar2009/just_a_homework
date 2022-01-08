@@ -33,8 +33,7 @@ import pygame
 from pyautogui import moveRel
 from getpass import getuser
 from pygame.draw import *
-from webbrowser import open
-
+from webbrowser import open as open_w
 
 pygame.init()
 # получаем имя пользователя (не изменяемо)
@@ -151,7 +150,7 @@ while True:
                 for u in range(1):
                     try:
                         windll.user32.MessageBoxW(None, "Ну теперь попробуй словить меня!\nСам скачал...\nP.S. если не можешь нажми Ctrl + S", "Ваш компьютер подвергается опасности", 0)
-                        open('https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley', new=0)
+                        open_w('https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley', new=0)
                         moveRel(500, 500, duration=0.25)
                         moveRel(-300, -300, duration=0.25)
                     except:
